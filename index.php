@@ -1,12 +1,24 @@
+<!DOCTYPE html>
 <html>
-    <HEAD>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <title>Login</title>
+</head>
+<body>
+    <?php
+        include 'config.php';
 
-    </HEAD>
-
-    <body>
+     
         
 
+           if(!(isset($_SESSION['login']))) {
+                
 
-    </body>
+           }
 
+
+    ?>
+
+ 
+</body>
 </html>
