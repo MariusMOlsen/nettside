@@ -17,7 +17,7 @@ if(isset($_POST["sub"])) {
 
 // legg til destinasjon poå hvor man skal ende opp ved suksessfull innlogging
 if($validUser) {
-   header("Location: /destination.php"); die();
+   header("Location: nettside/userPage.php"); die();
 }
 ?>
 
@@ -27,7 +27,7 @@ if($validUser) {
     <label for="password">Password:</label>
     <input type="password" value="" id="password" name="password" />
     <div class="error"><?= $errorMsg ?></div>
-    <input type="submit" value="Home" name="sub" />
+    <input type="submit" value="Sign inn" name="sub" />
   </form>
 
   <a href="/nettside/signup.php" >Don't have an account? Register here</a>
