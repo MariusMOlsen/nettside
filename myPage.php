@@ -9,13 +9,20 @@
         include 'config.php';
 
      
-        include 'login.php';
-
           
 
 
     ?>
 
-    Gjestebruker skal skrive inn 4 sifret kode for å bli sendt videre til emnesiden.
+
+    <H2>Student</H2>
+
+    Her skal studenten kunne se hvilke emner han har og skal kunne bytte passord.
+
+
+    <h2>Lecturer</h2>
+
+    Her skal foreleseren kunne se hvilke emner han har og skal kunne bytte passord.
+ 
 </body>
 </html>

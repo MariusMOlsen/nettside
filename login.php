@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <title>Login</title>
-</head>
-<body>
+<h2>Sign in</h2>
+<br>
 <?php
-include 'config.php';
+
 
 $errorMsg = "";
 $validUser = false;
@@ -22,7 +17,7 @@ if(isset($_POST["sub"])) {
 
 // legg til destinasjon poå hvor man skal ende opp ved suksessfull innlogging
 if($validUser) {
-   header("Location: /signup.php"); die();
+   header("Location: /destination.php"); die();
 }
 ?>
 
@@ -34,5 +29,5 @@ if($validUser) {
     <div class="error"><?= $errorMsg ?></div>
     <input type="submit" value="Home" name="sub" />
   </form>
-  </body>
-</html>
+
+  <a href="/nettside/signup.php" >Don't have an account? Register here</a>
