@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-        include 'config.php';
+        include '../config.php';
 
      
         
@@ -31,6 +31,7 @@
                 
             }
             if( $_POST['gamemode'] == 0){ 
+                
                 include 'signup_lecturer.php';
                 
             }

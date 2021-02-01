@@ -1,5 +1,8 @@
 
 <?php
+
+    
+
     $errorMsgEmail="";
     $errorMsgPassword="";
     $errorMsgSubject="";
@@ -10,54 +13,42 @@
 
     
 
-    if(isset($_POST['sub'])){
-
-        if( isset($_POST['lecturer_email']) ){
-            // sjekk om eposten allerede er i bruk
-            $password_valid = true;
-        }
-
-        if( isset($_POST['password'])  && isset($_POST['password_conf']) ){
-            // sjekk om passordene stemmer overens
-            $email_valid    = true;
-        }
-
-
-        if( isset($_POST['subject'])){
-            // sjekk om det finnes et emne med samme 'subject' navn
-
-            $subject_valid  = true;
-        }
-
-        if( $password_valid && $email_valid && $subject_valid){
-            // dersom de innfylte feltene er godkjent, opprett brukeren.
-        }
     
-        //header("Location: /userPage.php");
-    }
-
     
 
 
 ?>
 <h2>Register Lecturer</h2>
 
-<form action="" method="post">
+<form action="http://158.39.188.206/steg1/signup/signup_lecturer_backend.php" method="get">
     <label for="" name="">Enter email</label>
     <input type="text" name="lecturer_email">
     <div class="error"><?= $errorMsgEmail ?></div>
-
+    <br>
     <label for="">Password</label>
     <input type="text" name="password">
+    <br>
+    <label for="">Firstname</label>
+    <input type="text" name="firstname">
+    <br>
+    <label for="">Lastname</label>
+    <input type="text" name="lastname">
     <br>
     <label for="">Confirm Password</label>
     <input type="text" name="password_conf">
     <br>
     <label for="">Create subject</label>
     <input type="text" name="subject">
+    <br>
+    <label for="">Emnekode</label>
+    <input type="text" name="subjectCode">
+    <br>
     <div class="error"><?php $errorMsgsubject ?></div>
     <label for="">kode på 4 siffer</label>
-    <input type="text" name="subjectCode">
+    <input type="text" name="subjectPin">
+    <br>
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
     <br>
     <input type="submit" value="Register" name="sub" >
 </form>

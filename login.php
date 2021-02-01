@@ -17,7 +17,7 @@ if(isset($_POST["sub"])) {
 
 // legg til destinasjon poå hvor man skal ende opp ved suksessfull innlogging
 if($validUser) {
-   header("Location: nettside/userPage.php"); die();
+   header("Location: userPage.php"); die();
 }
 ?>
 
@@ -30,4 +30,4 @@ if($validUser) {
     <input type="submit" value="Sign inn" name="sub" />
   </form>
 
-  <a href="/nettside/signup.php" >Don't have an account? Register here</a>
+  <a href="http://158.39.188.206/steg1/signup/signup.php" >Don't have an account? Register here</a>
