@@ -32,7 +32,7 @@
         if( $password_valid && $email_valid && $subject_valid){
             // dersom de innfylte feltene er godkjent, opprett brukeren.
         }
-
+    
         //header("Location: /userPage.php");
     }
 

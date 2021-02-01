@@ -15,14 +15,28 @@
 
     if(isset($_POST['sub'])){
 
-        if( isset($_POST['lecturer_email']) ){
-            // sjekk om eposten allerede er i bruk
-            $password_valid = true;
+        if( isset($_POST['student_email']) ){
+            $sql = "SELECT id FROM Students WHERE email=".'"'.$_POST['student_email'].'"';
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                  echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+                }
+                $errorMsgEmail="There is already a user with that username";
+              } else {
+                $errorMsgEmail ="User doens't exist";
+                $email_valid    = true;
+              }
+            
+            
+            
         }
 
         if( isset($_POST['password'])  && isset($_POST['password_conf']) ){
             // sjekk om passordene stemmer overens
-            $email_valid    = true;
+            $password_valid = true;
         }
 
 

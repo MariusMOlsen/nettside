@@ -6,14 +6,13 @@
 </head>
 <body>
     <?php
+
         include 'config.php';
 
-     
+      
         include 'login.php';
 
           
-
-
     ?>
 
     Gjestebruker skal skrive inn 4 sifret kode for å bli sendt videre til emnesiden.
