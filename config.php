@@ -1,12 +1,12 @@
 <?php
-    
-    ini_set('display_errors', 'On');
+    session_start();
+    ini_set('display_errors', 'off');
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
 
-    $_SESSION['login']= false;
+
     // 158.39.188.206
     $servername = "localhost";
     $username = "admin";

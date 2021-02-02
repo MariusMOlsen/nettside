@@ -46,9 +46,8 @@ if(isset($_GET['sub'])){
 
         $subject_valid  = true;
     }
-
+        // Sjekker om passord, email, subject, og navn er skrevet inn riktig.
     if( $password_valid && $email_valid && $subject_valid && $name_valid){
-        
         
         $sql = "INSERT INTO `Teacher` (`firstname`, `lastname`, `email`, `image_Timestamp`, `admin`) VALUES ("."'".$firstname."'"."  , "."'".$lastname."'"." ,"."'".$email."'"." , '5283782372', "."'".NULL."'".");";       
         
@@ -66,6 +65,11 @@ if(isset($_GET['sub'])){
                 }
             }
 
+            // Opprettelse av Credential
+            $sqlCred = "INSERT INTO `Credentials` (`email`, `password`) VALUES ("."'".$email."'".","."'".$password."'"." );";
+            if($conn->query($sqlCred)){
+                echo "Credentials opprettet";
+            }
             //Opprettelse av course
             $sql2="INSERT INTO `Course` (`id`, `coursecode`, `pin`, `teacherId`,`courseName`) VALUES (NULL,"."'".$subjectCode."'". " ," ."'".$subjectPin."'"."," ."'".$teacherId."'".","."'".$subject."'".");";
             if($conn->query($sql2)){
@@ -83,7 +87,7 @@ if(isset($_GET['sub'])){
        
     }
 
-    //header("Location: /userPage.php");
+    
 }
 
 

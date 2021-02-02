@@ -1,8 +1,8 @@
 
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+    require '../config.php';
+
+
 
 
     $URL = "http://158.39.188.206/steg1/signup/signup_student_backend.php";

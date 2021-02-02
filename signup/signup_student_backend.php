@@ -67,6 +67,8 @@ if(isset($_GET['subjectList'])){
    
 }
 
+}
+
          
 
 ?>

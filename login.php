@@ -1,33 +1,62 @@
 <h2>Sign in</h2>
 <br>
 <?php
-
+require 'config.php';
 
 $errorMsg = "";
 $validUser = false;
-if(isset($_POST["sub"])) {
+if(isset(  $_GET['username']) && isset( $_GET['password'])) {
+    $email = $_GET['username'];
+    $password = $_GET['password'];
+
+    //Sjekk om det finnes Credentials med den kobinasjonen av brukernavn og passord.
+    $loginValidaton = "SELECT email FROM Credentials WHERE email ="."'".$email."'"." AND password = '".$password."';";
+    $result = $conn->query($loginValidaton);
     
-    // Denne linjen verifiserer innlogginsinfo, her blir det sjekk mot database
-    $validUser = $_POST["username"] == "admin" && $_POST["password"] == "password";
-    if(!$validUser){
-    $errorMsg = "Invalid username or password.";
-    } 
-   
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $userEmail = $row['email'];
+            $validUser = true;
+        }
+    }
+    $_SESSION['role'] ="test";
+    if($validUser){
+        //sjekk om den innloggede brukeren er en Student eller Teacher.
+        $findRole = "SELECT id, email FROM Student WHERE email = "."'".$email."';";
+        $_SESSION['email'] = $email;
+        $result = $conn->query($findRole);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $_SESSION['role'] = "student";
+                $_SESSION['studentId'] = $row['id'];
+            }
+        } 
+        // Lagrer data i session
+        else{
+
+            $getSessionData = "SELECT *  FROM Teacher WHERE email ="."'".$email."';";
+            $result = $conn->query($getSessionData);
+            
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $_SESSION['teacherId'] = $row['id'];
+                    
+                }
+            }
+            $_SESSION['role'] = "teacher";
+
+        }
+
+    }
+    
+
+
 }
 
 // legg til destinasjon poå hvor man skal ende opp ved suksessfull innlogging
 if($validUser) {
-   header("Location: userPage.php"); die();
+  
+  header("Location: userpage.php"); //die();
+  
 }
 ?>
-
-<form name="input" action="" method="post">
-    <label for="username">Username:</label>
-    <input type="text" value="" id="username" name="username" />
-    <label for="password">Password:</label>
-    <input type="password" value="" id="password" name="password" />
-    <div class="error"><?= $errorMsg ?></div>
-    <input type="submit" value="Sign inn" name="sub" />
-  </form>
-
-  <a href="http://158.39.188.206/steg1/signup/signup.php" >Don't have an account? Register here</a>
