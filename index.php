@@ -19,8 +19,9 @@
           if ($result3->num_rows > 0) {
               while($row3 = $result3->fetch_assoc()) {
                 $subjectId = $row['id'];
+                $_SESSION['role']="guest";
               }
-              $_SESSION['role']="guest";
+              
           header('Location: http://158.39.188.206/steg1/course.php?selectedCourse='.$subjectId);
           }
           else{

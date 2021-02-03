@@ -40,7 +40,7 @@
 
    
 
-    <H2>Hey dear <?php echo $_SESSION['role']."med studentId: ".$_SESSION['studentId'] ?></H2>
+    <H2>Hey dear <?php echo $_SESSION['role']; ?></H2>
 
     Her skal studenten kunne se hvilke emner han har og gå inn på de ulike emnene, studenten  skal også kunne bytte passord.
     <form action="http://158.39.188.206/steg1/course.php" method="get">

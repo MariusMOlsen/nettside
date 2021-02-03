@@ -17,26 +17,49 @@ if(isset($_POST['msgSent'])){
 
 
 if(isset($_POST['replySent'])){
-    if($_SESSION['role']="guest"){
-        echo "msgID: ".$_POST['msgReply'];
+
+    if($_SESSION['role']== "guest"){
+        
+        // opprettelse av gjestekommentar
         $createGuestComment = "INSERT INTO GuestComment ( message, messageId) VALUES ("."'".$_POST['msgReply']."','".$_POST['msgId']."');";
         if ($conn->query($createGuestComment)){
             echo "GuestReply lagret.";
         }
+    }
+    elseif($_SESSION['role'] == "teacher"){
+        $didTeacherReply = false;
+
+        //Sjekk om foreleser har besvart
+        $checkIfTeacherReplied = "SELECT * from TeacherResponse WHERE messageId ="."'".$_POST['msgId']."' AND teacherId ='".$_SESSION['teacherId']."';";
+        $result2 = $conn->query($checkIfTeacherReplied);
+        if ($result2->num_rows > 0) {
+            while($row2 = $result2->fetch_assoc()) {
+                $didTeacherReply = true;
+            }
+        }
+
+        // opprettelse av svar fra teacher dersom foreleser ikke har besvart
+        if(!$didTeacherReply){
+            $createTeacherResponse = "INSERT INTO `TeacherResponse` ( `message`, `messageId`, `teacherId`) VALUES ( "."'".$_POST['msgReply']."','".$_POST['msgId']."','".$_SESSION['teacherId']."');";
+            if ($conn->query($createTeacherResponse)){
+                echo "TeacherReply lagret.";
+            }
+        }
+        
     }
     //HER MÅ FORELESER KUNNE SVARE PÅ EN MELDING
     
 }
 
 //Hent alle Messages
-$getMessages = "SELECT *  FROM Message;";
+$getMessages = "SELECT *  FROM Message WHERE courseId="."'".$_GET['selectedCourse']."';";
 $messages;            
 $result = $conn->query($getMessages);
-
-
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $commentHolder="";
+
+        // Hent alle Gjestekommentarer på hver message
         $getGuestComment = "SELECT * from GuestComment WHERE messageId ="."'".$row['id']."';";
         $result2 = $conn->query($getGuestComment);
         if ($result2->num_rows > 0) {
@@ -45,6 +68,7 @@ if ($result->num_rows > 0) {
             }
         }
 
+        // Hent alle TeacherReplies på hver message
         $getTeacherResponse = "SELECT * from TeacherResponse WHERE messageId ="."'".$row['id']."';";
         $result3 = $conn->query($$getTeacherResponse);
         if ($result3->num_rows > 0) {
@@ -94,6 +118,8 @@ if ($result->num_rows > 0) {
     </head>
 
     <body>
+            
+            <h1><?php echo "MIN ROLLE: ".$_SESSION['role'] ?></h1>
         <form action="" method="post">
         <label for="">Write a new message</label>
         <input type="text" name="txtMsg">
