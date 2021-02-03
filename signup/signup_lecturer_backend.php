@@ -49,11 +49,11 @@ if(isset($_GET['sub'])){
         // Sjekker om passord, email, subject, og navn er skrevet inn riktig.
     if( $password_valid && $email_valid && $subject_valid && $name_valid){
         
-        $sql = "INSERT INTO `Teacher` (`firstname`, `lastname`, `email`, `image_Timestamp`, `admin`) VALUES ("."'".$firstname."'"."  , "."'".$lastname."'"." ,"."'".$email."'"." , '5283782372', "."'".NULL."'".");";       
+        $sql = "INSERT INTO `Teacher` (`firstname`, `lastname`, `email`, `imagename`, `admin`) VALUES ("."'".$firstname."'"."  , "."'".$lastname."'"." ,"."'".$email."'"." , '/uploads/standard.jpg', "."'".NULL."'".");";       
         
         //Kjør sql spørring og opprett teacher
         if($conn->query($sql)){
-            echo "bruker registrert.";
+            
              // Hent teacherID
             $hentTeacherId = "SELECT id  FROM Teacher WHERE email ="."'".$email."';";
             
@@ -68,16 +68,16 @@ if(isset($_GET['sub'])){
             // Opprettelse av Credential
             $sqlCred = "INSERT INTO `Credentials` (`email`, `password`) VALUES ("."'".$email."'".","."'".$password."'"." );";
             if($conn->query($sqlCred)){
-                echo "Credentials opprettet";
+                
             }
             //Opprettelse av course
             $sql2="INSERT INTO `Course` (`id`, `coursecode`, `pin`, `teacherId`,`courseName`) VALUES (NULL,"."'".$subjectCode."'". " ," ."'".$subjectPin."'"."," ."'".$teacherId."'".","."'".$subject."'".");";
             if($conn->query($sql2)){
-            echo "Kurs ble opprettet";
+                header("Location:http://158.39.188.206/steg1/index.php?login=OK");
         }
            
         }else{
-            echo "bruker ble ikke registrert.";
+            header("Location:http://158.39.188.206/steg1/signup/signup.php?login=FEILET");
         }
         
         

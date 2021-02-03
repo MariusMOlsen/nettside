@@ -3,8 +3,10 @@
 <?php
 require 'config.php';
 
-$errorMsg = "";
+
 $validUser = false;
+
+// Sjekk om GET data er generert
 if(isset(  $_GET['username']) && isset( $_GET['password'])) {
     $email = $_GET['username'];
     $password = $_GET['password'];
@@ -12,16 +14,19 @@ if(isset(  $_GET['username']) && isset( $_GET['password'])) {
     //Sjekk om det finnes Credentials med den kobinasjonen av brukernavn og passord.
     $loginValidaton = "SELECT email FROM Credentials WHERE email ="."'".$email."'"." AND password = '".$password."';";
     $result = $conn->query($loginValidaton);
-    
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $userEmail = $row['email'];
-            $validUser = true;
+            if($userEmail != ""){
+                $validUser = true;
+            }
+            
         }
     }
-    $_SESSION['role'] ="test";
+
+    // Sjekk om brukeren er en gyldig bruker
     if($validUser){
-        //sjekk om den innloggede brukeren er en Student eller Teacher.
+        //sjekk om den innloggede brukeren er en Student, dersom den er det lagres tilhørende bruker id og rolle i session
         $findRole = "SELECT id, email FROM Student WHERE email = "."'".$email."';";
         $_SESSION['email'] = $email;
         $result = $conn->query($findRole);
@@ -30,8 +35,9 @@ if(isset(  $_GET['username']) && isset( $_GET['password'])) {
                 $_SESSION['role'] = "student";
                 $_SESSION['studentId'] = $row['id'];
             }
-        } 
-        // Lagrer data i session
+        }
+
+        //sjekk om den innloggede brukeren IKKE er en Student, dersom den er det lagres tilhørende bruker id og rolle i session
         else{
 
             $getSessionData = "SELECT *  FROM Teacher WHERE email ="."'".$email."';";
@@ -40,6 +46,7 @@ if(isset(  $_GET['username']) && isset( $_GET['password'])) {
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     $_SESSION['teacherId'] = $row['id'];
+                    $_SESSION['imagename'] = $row['imagename'];
                     
                 }
             }
@@ -53,10 +60,12 @@ if(isset(  $_GET['username']) && isset( $_GET['password'])) {
 
 }
 
-// legg til destinasjon poå hvor man skal ende opp ved suksessfull innlogging
+// Dersom brukeren er gyldig, videresend brukeren til "Min side" med hvor brukeren kan bytte passord og se emner.
 if($validUser) {
   
   header("Location: userpage.php"); //die();
   
+}else{
+    header("Location: index.php?error= epost og passord kombinasjonen er feil.");
 }
 ?>

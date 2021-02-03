@@ -29,7 +29,10 @@ if(isset($_GET['student_email'])){
 if( isset( $_GET['password']) && isset($_GET['password_conf']) ) {
     $password1 = $_GET['password'];
     $password2 = $_GET['password_conf'];
-    $passcheck = true;
+    if($password1 == $password2){
+        $passcheck = true;
+        
+    }
 
 
 }
@@ -67,14 +70,14 @@ if(isset($_GET['subject'])){
     <label for="">Password</label>
     <input type="text" name="password">
     <br>
+    <label for="">Confirm Password</label>
+    <input type="text" name="password_conf">
+    <br>
     <label for="">Enter Firstname</label>
     <input type="text" name="firstname">
     <br>
     <label for="">Lastname</label>
     <input type="text" name="lastname">
-    <br>
-    <label for="">Confirm Password</label>
-    <input type="text" name="password_conf">
     <br>
     <label for="">Enter subject</label>
     <select name="subjectList" id="subject">

@@ -5,7 +5,19 @@
   <title>Login</title>
 </head>
 <body>
+
+
     <?php
+    if( isset($_GET['login']) ){
+      echo "Bruker ble registrert. <br><br><br>";
+    }
+    if(isset($_GET['error'] )){
+      echo$_GET['error']."<br><br>";
+
+    }
+    
+
+
         if(isset($_GET['logout'])){
           session_destroy();
         }
@@ -18,8 +30,9 @@
           $subjectId;
           if ($result3->num_rows > 0) {
               while($row3 = $result3->fetch_assoc()) {
-                $subjectId = $row['id'];
+                $subjectId = $row3['id'];
                 $_SESSION['role']="guest";
+               
               }
               
           header('Location: http://158.39.188.206/steg1/course.php?selectedCourse='.$subjectId);
@@ -35,7 +48,7 @@
 
   
     <form name="input" action="http://158.39.188.206/steg1/login.php" method="get">
-        <label for="username">Username:</label>
+        <label for="">Email:</label>
         <input type="text" value="" id="username" name="username" />
         <label for="password">Password:</label>
         <input type="password" value="" id="password" name="password" />

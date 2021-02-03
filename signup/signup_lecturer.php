@@ -28,14 +28,15 @@
     <label for="">Password</label>
     <input type="text" name="password">
     <br>
+    <label for="">Confirm Password</label>
+    <input type="text" name="password_conf">
+    <br>
     <label for="">Firstname</label>
     <input type="text" name="firstname">
     <br>
     <label for="">Lastname</label>
     <input type="text" name="lastname">
-    <br>
-    <label for="">Confirm Password</label>
-    <input type="text" name="password_conf">
+    
     <br>
     <label for="">Create subject</label>
     <input type="text" name="subject">
@@ -47,8 +48,6 @@
     <label for="">kode på 4 siffer</label>
     <input type="text" name="subjectPin">
     <br>
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <br>
+    
     <input type="submit" value="Register" name="sub" >
 </form>

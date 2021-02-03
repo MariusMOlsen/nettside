@@ -2,6 +2,18 @@
 
 require 'config.php';
 
+// Hent Kursnavn
+$sqlGetCourseName = "SELECT * FROM Course WHERE id="."'".$_GET['selectedCourse']."';";
+$result3 = $conn->query($sqlGetCourseName);
+if ($result3->num_rows > 0) {
+    while($row3 = $result3->fetch_assoc()) {
+        $courseName = $row3['courseName'];
+    }
+}
+
+//  Print velkomsmelding
+echo "<h2>"."Velommen til kurs: ".$courseName."</h2>";
+
 // dersom "Send" knappen er trykket:
 if(isset($_POST['msgSent'])){
 
@@ -57,6 +69,8 @@ $messages;
 $result = $conn->query($getMessages);
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
+
+        // variabel som holder på alle kommentarer fra guest og teacher
         $commentHolder="";
 
         // Hent alle Gjestekommentarer på hver message
@@ -69,10 +83,12 @@ if ($result->num_rows > 0) {
         }
 
         // Hent alle TeacherReplies på hver message
-        $getTeacherResponse = "SELECT * from TeacherResponse WHERE messageId ="."'".$row['id']."';";
-        $result3 = $conn->query($$getTeacherResponse);
+        $getTeacherResponse = "SELECT * FROM TeacherResponse WHERE messageId ="."'".$row['id']."';";
+       
+        $result3 = $conn->query($getTeacherResponse);
         if ($result3->num_rows > 0) {
             while($row3 = $result3->fetch_assoc()) {
+                
                 $commentHolder .= "<div class='messageReplyTeacher'value='".$row3['id']."'>".$row3['message']."</div>";
             }
         }
@@ -119,12 +135,20 @@ if ($result->num_rows > 0) {
 
     <body>
             
-            <h1><?php echo "MIN ROLLE: ".$_SESSION['role'] ?></h1>
-        <form action="" method="post">
-        <label for="">Write a new message</label>
-        <input type="text" name="txtMsg">
-        <input type="submit" value="Send" name="msgSent">
-        </form>
+        <?php 
+    
+            if( $_SESSION['role'] == 'guest' ||  $_SESSION['role'] == 'student'){
+                echo "
+                <form action='' method='post'>
+                <label for=''>Write a new message</label>
+                <input type='text' name='txtMsg'>
+                <input type='submit' value='Send' name='msgSent'>
+                </form>";
+            }
+        
+            
+        ?>
+        
 
     </body>
 </html>

@@ -8,10 +8,12 @@
 <body>
     <?php
         include '../config.php';
-
+        if( isset($_GET['login']) ){
+            echo "Feltene er ikke fylt inn riktig, prøv igjen. <br><br><br>";
+        }
      
         
-    ?>
+    ?> 
         <div class="form-group">
             <span><b>Do you want to register a student or lecturer?</b></span> &nbsp;<div class="btn-group" id="status" data-toggle="buttons">
             <form method="post">
