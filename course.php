@@ -13,7 +13,7 @@ if ($result3->num_rows > 0) {
 
 //  Print velkomsmelding
 echo "<h2>"."Velommen til kurs: ".$courseName."</h2>";
-
+echo"<p> Svar fra foreleser er skrevet som tykk tekst </p>";
 // dersom "Send" knappen er trykket:
 if(isset($_POST['msgSent'])){
 
@@ -89,7 +89,7 @@ if ($result->num_rows > 0) {
         if ($result3->num_rows > 0) {
             while($row3 = $result3->fetch_assoc()) {
                 
-                $commentHolder .= "<div class='messageReplyTeacher'value='".$row3['id']."'>".$row3['message']."</div>";
+                $commentHolder .= "<div class='messageReplyTeacher'value='".$row3['id']."'><b> ".$row3['message']."     - Hilsen Foreleser</b></div>";
             }
         }
 
